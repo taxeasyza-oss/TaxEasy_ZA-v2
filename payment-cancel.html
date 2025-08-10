@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Cancelled - TaxEasy_ZA</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .cancel-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            text-align: center;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .cancel-icon {
+            font-size: 4rem;
+            color: #dc3545;
+            margin-bottom: 1rem;
+        }
+        .cancel-title {
+            color: #dc3545;
+            margin-bottom: 1rem;
+        }
+        .cancel-message {
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-return, .btn-retry {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        .btn-return {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .btn-retry {
+            background: #28a745;
+            color: white;
+        }
+        .btn-return:hover, .btn-retry:hover {
+            transform: translateY(-2px);
+            color: white;
+        }
+        .discount-info {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid #667eea;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-text">TaxEasy<span>_ZA</span></span>
+                    <span class="tagline">Your Tax. Your Language. Made Easy.</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="cancel-container">
+            <div class="cancel-icon">
+                <i class="fas fa-times-circle"></i>
+            </div>
+            <h1 class="cancel-title" data-i18n="payment_cancelled">Payment Cancelled</h1>
+            <div class="cancel-message">
+                <p data-i18n="payment_cancelled_details">Your payment was cancelled or could not be processed.</p>
+                <div id="errorDetails" style="display: none;">
+                    <p><strong data-i18n="error_reason">Reason:</strong> <span id="errorReason"></span></p>
+                    <p data-i18n="contact_support">Please contact support if you need assistance.</p>
+                </div>
+                <p data-i18n="no_charges">Don't worry - no charges were made to your account.</p>
+            </div>
+            
+            <div class="discount-info">
+                <h3><i class="fas fa-tag"></i> <span data-i18n="alternative_options">Alternative Options</span></h3>
+                <p data-i18n="discount_option">You can still generate your PDF report using:</p>
+                <ul style="text-align: left; display: inline-block;">
+                    <li data-i18n="dev_api_option">Developer API key integration</li>
+                    <li data-i18n="tester_code_option">Single-use tester discount code (TESTER-1 to TESTER-50)</li>
+                </ul>
+            </div>
+
+            <div class="btn-group">
+                <a href="index.html" class="btn-return">
+                    <i class="fas fa-calculator"></i>
+                    Return to Calculator
+                </a>
+                <a href="index.html#payment" class="btn-retry">
+                    <i class="fas fa-credit-card"></i>
+                    Try Payment Again
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Clear any payment success flags
+        localStorage.removeItem('paymentCompleted');
+        localStorage.removeItem('transactionId');
+        
+        // Enhanced error handling
+        const urlParams = new URLSearchParams(window.location.search);
+        const errorReason = urlParams.get('reason') || 'Unknown error';
+
+        // Display detailed error if present
+        if (errorReason && errorReason !== 'Unknown error') {
+            document.getElementById('errorDetails').style.display = 'block';
+            document.getElementById('errorReason').textContent = errorReason;
+        }
+
+        // Clear sensitive data
+        ['paymentCompleted', 'transactionId', 'taxData', 'apiKey'].forEach(key => {
+            localStorage.removeItem(key);
+        });
+
+        // Countdown redirect
+        let countdown = 10;
+        const countdownElement = document.createElement('p');
+        countdownElement.className = 'countdown';
+        document.querySelector('.cancel-message').appendChild(countdownElement);
+
+        const updateCountdown = () => {
+            countdownElement.innerHTML = `
+                <span data-i18n="redirect_message">Redirecting in</span>
+                ${countdown}
+                <span data-i18n="seconds">seconds</span>...
+            `;
+            if (countdown-- <= 0) {
+                clearInterval(interval);
+                window.location.href = 'index.html';
+            }
+        };
+
+        const interval = setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+</body>
+</html>
+

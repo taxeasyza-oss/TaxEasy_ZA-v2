@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful - TaxEasy_ZA</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .success-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+            text-align: center;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .success-icon {
+            font-size: 4rem;
+            color: #28a745;
+            margin-bottom: 1rem;
+        }
+        .success-title {
+            color: #28a745;
+            margin-bottom: 1rem;
+        }
+        .success-message {
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        .btn-return {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        .btn-return:hover {
+            transform: translateY(-2px);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-text">TaxEasy<span>_ZA</span></span>
+                    <span class="tagline">Your Tax. Your Language. Made Easy.</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="success-container">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h1 class="success-title">Payment Successful!</h1>
+            <div class="success-message">
+                <p>Thank you for your payment. Your transaction has been processed successfully.</p>
+                <p>You can now generate and download your comprehensive tax calculation PDF report.</p>
+                <p><strong>Payment Amount:</strong> R99.00</p>
+                <p><strong>Transaction ID:</strong> <span id="transactionId">Loading...</span></p>
+            </div>
+            <a href="index.html" class="btn-return">
+                <i class="fas fa-calculator"></i>
+                Return to Tax Calculator
+            </a>
+        </div>
+    </main>
+
+    <script>
+        // Extract payment details from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const transactionId = urlParams.get('pf_payment_id') || 'PF' + Date.now();
+        
+        document.getElementById('transactionId').textContent = transactionId;
+        
+        // Store payment success in localStorage
+        localStorage.setItem('paymentCompleted', 'true');
+        localStorage.setItem('transactionId', transactionId);
+        
+        // Auto-redirect after 10 seconds
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 10000);
+    </script>
+</body>
+</html>
+

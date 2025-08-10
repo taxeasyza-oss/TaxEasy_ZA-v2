@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FAQ – TaxEasy_ZA</title>
+  <meta name="description" content="TaxEasy_ZA FAQ – multilingual South-African tax help">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .faq-container{max-width:900px;margin:2rem auto;padding:0 1rem;font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif}
+    .faq-item{border:1px solid #e1e5e9;border-radius:12px;margin-bottom:1rem;overflow:hidden}
+    .faq-question{display:flex;justify-content:space-between;align-items:center;width:100%;padding:1rem 1.2rem;background:#f8f9fa;border:none;font-size:1rem;font-weight:600;text-align:left;cursor:pointer}
+    .faq-question:hover{background:#e9ecef}
+    .faq-answer{max-height:0;padding:0 1.2rem;overflow:hidden;background:#fff;font-size:.95rem;line-height:1.6;transition:max-height .3s ease}
+    .faq-answer.open{max-height:400px;padding:.5rem 1.2rem 1rem}
+  </style>
+</head>
+<body>
+<div class="taxeasy-bar">
+  <span>TaxEasy_ZA – Your Tax. Your Language. Made Easy.</span>
+  <a href="index.html"><i class="fas fa-arrow-left"></i> Back to Calculator</a>
+</div>
+
+<div class="faq-container">
+  <h1 id="faqTitle">Frequently Asked Questions</h1>
+  <div id="faqItems"></div>
+</div>
+
+<script>
+(async function () {
+  const urlLang = new URLSearchParams(location.search).get('lang') || localStorage.getItem('taxeasy_language') || 'en';
+  const res   = await fetch(`json/${urlLang}.json`);
+  const data  = res.ok ? await res.json() : await fetch('en.json').then(r=>r.json());
+  const items = data.faqs || [];
+
+  const container = document.getElementById('faqItems');
+  items.forEach((f,i)=>{
+    const div = document.createElement('div');
+    div.className='faq-item';
+    div.innerHTML=`
+      <button class="faq-question" onclick="toggleFaq(${i})">
+        ${f.question} <i class="fas fa-chevron-down"></i>
+      </button>
+      <div class="faq-answer" id="ans-${i}">${f.answer}</div>`;
+    container.appendChild(div);
+  });
+
+  document.getElementById('faqTitle').textContent = data.faq_title || 'FAQ';
+})();
+
+function toggleFaq(i){
+  const a=document.getElementById(`ans-${i}`);
+  const icon=a.previousElementSibling.querySelector('i');
+  const open=a.classList.toggle('open');
+  icon.className= open ? 'fas fa-chevron-up' : 'fas fa-chevron-down';
+}
+</script>
+</body>
+</html>

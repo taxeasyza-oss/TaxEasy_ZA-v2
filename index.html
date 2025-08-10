@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaxEasy_ZA – Your Tax. Your Language. Made Easy.</title>
+    <meta name="description" content="Professional South African personal income tax calculator for 2025. Calculate your tax in English, Afrikaans, isiZulu, isiXhosa, and Sesotho. Free, secure, and POPIA compliant.">
+    <meta name="keywords" content="South Africa tax calculator, SARS, income tax, ITR12, multilingual, 2025 tax year">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🧮%3C/text%3E%3C/svg%3E">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="en.json" as="fetch" crossorigin="anonymous">
+    <link rel="preload" href="js/app.js" as="script">
+    
+    <!-- Security headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com; img-src 'self' data:;">
+</head>
+<body>
+    <!-- Tooltip container for dynamic tooltips -->
+    <div id="tooltipContainer" class="tooltip-container" style="display:none;position:absolute;z-index:9999;"></div>
+    <!-- Header with improved desktop layout -->
+    <header class="header" role="banner">
+        <div class="header-content">
+            <div class="logo">
+                <h1>TaxEasy <span class="za">ZA</span></h1>
+                <div class="tagline" data-translate="tagline">Your Tax. Your Language. Made Easy.</div>
+            </div>
+            
+            <div class="header-controls">
+                <div class="language-selector">
+                    <label for="langSelect" class="sr-only">Select Language</label>
+                    <select id="langSelect" aria-label="Select Language">
+                        <option value="en">English</option>
+                        <option value="af">Afrikaans</option>
+                        <option value="zu">isiZulu</option>
+                        <option value="xh">isiXhosa</option>
+                        <option value="st">Sesotho</option>
+                    </select>
+                </div>
+                
+                <a href="faq.html" class="header-btn secondary" id="faqBtn" data-translate="faq">
+                    <i class="fas fa-question-circle" aria-hidden="true"></i>
+                    <span>FAQ</span>
+                </a>
+                
+                <a href="efiling-guide.html" class="header-btn primary" id="efilingBtn" data-translate="efiling">
+                    <i class="fas fa-file-upload" aria-hidden="true"></i>
+                    <span>eFiling</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main container -->
+    <main class="container" role="main">
+        <!-- Progress indicator -->
+        <div class="progress-container" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span data-translate="step">Step</span> <span id="currentStep">1</span> <span data-translate="of">of</span> <span id="totalSteps">5</span>
+            </div>
+        </div>
+        
+        <!-- ARIA Live Region -->
+        <div id="aria-announcements"
+             aria-live="polite"
+             aria-atomic="true"
+             class="sr-only">
+        </div>
+
+        <!-- Enhanced navigation with better desktop layout -->
+        <nav class="navigation" role="navigation" aria-label="Tax calculation steps">
+            <button class="nav-item active" id="nav1" data-step="1" aria-current="step">
+                <div class="nav-number">1</div>
+                <div class="nav-label" data-translate="nav_personal">Personal</div>
+            </button>
+            <button class="nav-item" id="nav2" data-step="2">
+                <div class="nav-number">2</div>
+                <div class="nav-label" data-translate="nav_income">Income</div>
+            </button>
+            <button class="nav-item" id="nav3" data-step="3">
+                <div class="nav-number">3</div>
+                <div class="nav-label" data-translate="nav_deductions">Deductions</div>
+            </button>
+            <button class="nav-item" id="nav4" data-step="4">
+                <div class="nav-number">4</div>
+                <div class="nav-label" data-translate="nav_advanced">Advanced</div>
+            </button>
+            <button class="nav-item" id="nav5" data-step="5">
+                <div class="nav-number">5</div>
+                <div class="nav-label" data-translate="nav_summary">Summary</div>
+            </button>
+        </nav>
+
+        <!-- Page 1: Personal Information -->
+        <div id="page1" class="page active" role="tabpanel" aria-labelledby="nav1">
+            <div class="page-content">
+                <!-- Welcome section with improved messaging -->
+                <div class="welcome-section">
+                    <h2 id="welcomeTitle" data-translate="welcome_title">Welcome to TaxEasy_ZA!</h2>
+                    <p id="welcomeIntro" data-translate="welcome_intro">This professional tax calculator will help you accurately calculate your South African personal income tax for the 2025 tax year (1 March 2024 – 28 February 2025).</p>
+                    <p id="welcomeInstructions" data-translate="welcome_instructions">Please complete all sections accurately. Use the navigation buttons above to move between pages, and hover over the question mark icons for helpful tooltips.</p>
+                    
+                    <!-- Privacy notice addressing Kimi.ai feedback -->
+                    <div class="privacy-notice">
+                        <i class="fas fa-shield-alt" aria-hidden="true"></i>
+                        <span data-translate="privacy_notice">All data stays in your browser; nothing is uploaded. POPIA compliant.</span>
+                    </div>
+                </div>
+
+                <h2 class="page-title" id="page1Title" data-translate="user_info_title">
+                    <i class="fas fa-user" aria-hidden="true"></i>
+                    Personal Information
+                </h2>
+
+                <!-- Desktop-optimized form layout -->
+                <form class="form-grid two-column" id="personalForm" novalidate>
+                    <div class="form-section">
+                        <h3><i class="fas fa-id-card" aria-hidden="true"></i> <span data-translate="basic_info">Basic Information</span></h3>
+                        
+                        <div class="input-group">
+                            <label for="fullName" data-translate-key="full_name">Full Name</label>
+                            <input type="text" id="fullName" name="fullName" required 
+                                   aria-describedby="fullName-help" 
+                                   data-placeholder-key="full_name_placeholder">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="fullName" 
+                               tabindex="0" role="button" aria-label="Help for full name field"></i>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="idPassport" data-translate-key="id_passport">ID / Passport Number</label>
+                            <input type="text" id="idPassport" name="idPassport" required 
+                                   aria-describedby="idPassport-help"
+                                   data-placeholder-key="id_passport_placeholder">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="idPassport" 
+                               tabindex="0" role="button" aria-label="Help for ID/passport field"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3><i class="fas fa-calendar" aria-hidden="true"></i> <span data-translate="tax_details">Tax Details</span></h3>
+                        
+                        <div class="input-group">
+                            <label for="age" data-translate-key="age">Age</label>
+                            <input type="number" id="age" name="age" min="18" max="120" required 
+                                   aria-describedby="age-help">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="age" 
+                               tabindex="0" role="button" aria-label="Help for age field"></i>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="taxYear" data-translate-key="tax_year">Tax Year</label>
+                            <select id="taxYear" name="taxYear" required aria-describedby="taxYear-help">
+                                <option value="2025" data-translate="tax_year_2025">2025 (1 Mar 2024 – 28 Feb 2025)</option>
+                            </select>
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="taxYear" 
+                               tabindex="0" role="button" aria-label="Help for tax year field"></i>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Enhanced button group -->
+                <div class="btn-group">
+                    <div class="save-progress">
+                        <button type="button" class="btn btn-outline" id="saveProgress" data-translate="save_progress">
+                            <i class="fas fa-save" aria-hidden="true"></i>
+                            <span>Save Progress</span>
+                        </button>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-next" id="nextBtn1" data-translate="next">
+                        <span>Next</span>
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 2: Income and IRP5 Information -->
+        <div id="page2" class="page" role="tabpanel" aria-labelledby="nav2">
+            <div class="page-content">
+                <h2 class="page-title" id="page2Title" data-translate="income_irp5_title">
+                    <i class="fas fa-money-bill-wave" aria-hidden="true"></i>
+                    Income and IRP5 Information
+                </h2>
+
+                <!-- Real-time feedback widget addressing Kimi.ai critique -->
+                <div class="summary-card" id="incomePreview">
+                    <h3><i class="fas fa-calculator" aria-hidden="true"></i> <span data-translate="income_preview">Income Preview</span></h3>
+                    <div class="summary-row">
+                        <span class="summary-label" data-translate="total_income">Total Income:</span>
+                        <span class="summary-value" id="totalIncomePreview">R 0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label" data-translate="taxable_income">Taxable Income:</span>
+                        <span class="summary-value" id="taxableIncomePreview">R 0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span class="summary-label" data-translate="tax_bracket">Tax Bracket:</span>
+                        <span class="summary-value" id="taxBracketPreview">18%</span>
+                    </div>
+                </div>
+
+                <form class="form-grid auto-fit" id="incomeForm" novalidate>
+                    <!-- Employment Income Section -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-briefcase" aria-hidden="true"></i> <span data-translate="employment_income">Employment Income</span></h3>
+                        
+                        <div class="input-group">
+                            <label for="basicSalary">
+                                <span data-translate="basic_salary">Basic Salary</span>
+                                <span class="code-reference">(Code 3601)</span>
+                            </label>
+                            <input type="number" id="basicSalary" name="basicSalary" step="0.01" min="0" 
+                                   data-type="currency" aria-describedby="basicSalary-help"
+                                   data-placeholder-key="amount_placeholder">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="basicSalary" 
+                               tabindex="0" role="button" aria-label="Help for basic salary"></i>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="bonus">
+                                <span data-translate="bonus">Bonus</span>
+                                <span class="code-reference">(Code 3605)</span>
+                            </label>
+                            <input type="number" id="bonus" name="bonus" step="0.01" min="0" 
+                                   data-type="currency" aria-describedby="bonus-help">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="bonus" 
+                               tabindex="0" role="button" aria-label="Help for bonus"></i>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="commission">
+                                <span data-translate="commission">Commission</span>
+                                <span class="code-reference">(Code 3606)</span>
+                            </label>
+                            <input type="number" id="commission" name="commission" step="0.01" min="0" 
+                                   data-type="currency" aria-describedby="commission-help">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="commission" 
+                               tabindex="0" role="button" aria-label="Help for commission"></i>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="overtime">
+                                <span data-translate="overtime">Overtime</span>
+                                <span class="code-reference">(Code 3607)</span>
+                            </label>
+                            <input type="number" id="overtime" name="overtime" step="0.01" min="0" 
+                                   data-type="currency" aria-describedby="overtime-help">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="overtime" 
+                               tabindex="0" role="button" aria-label="Help for overtime"></i>
+                        </div>
+                    </div>
+
+                    <!-- Allowances Section -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-plus-circle" aria-hidden="true"></i> <span data-translate="allowances">Allowances</span></h3>
+                        
+                        <div class="input-group">
+                            <label for="travelAllowance">
+                                <span data-translate="travel_allowance">Travel Allowance</span>
+                                <span class="code-reference">(Code 3701)</span>
+                            </label>
+                            <input type="number" id="travelAllowance" name="travelAllowance" step="0.01" min="0" 
+                                   data-type="currency" aria-describedby="travelAllowance-help">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="travelAllowance" 
+                               tabindex="0" role="button" aria-label="Help for travel allowance"></i>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="cellphoneAllowance">
+                                <span data-translate="cellphone_allowance">Cellphone Allowance</span>
+                                <span class="code-reference">(Code 3702)</span>
+                            </label>
+                            <input type="number" id="cellphoneAllowance" name="cellphoneAllowance" step="0.01" min="0" 
+                                   data-type="currency" aria-describedby="cellphoneAllowance-help">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="cellphoneAllowance" 
+                               tabindex="0" role="button" aria-label="Help for cellphone allowance"></i>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="otherAllowances">
+                                <span data-translate="other_allowances">Other Allowances</span>
+                                <span class="code-reference">(Code 3703)</span>
+                            </label>
+                            <input type="number" id="otherAllowances" name="otherAllowances" step="0.01" min="0" 
+                                   data-type="currency" aria-describedby="otherAllowances-help">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="otherAllowances" 
+                               tabindex="0" role="button" aria-label="Help for other allowances"></i>
+                        </div>
+                    </div>
+
+                    <!-- Fringe Benefits Section -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-gift" aria-hidden="true"></i> <span data-translate="fringe_benefits">Fringe Benefits</span></h3>
+                        
+                        <div class="input-group">
+                            <label for="vehicleFringe">
+                                <span data-translate="vehicle_fringe">Company Vehicle</span>
+                                <span class="code-reference">(Code 3802)</span>
+                            </label>
+                            <input type="number" id="vehicleFringe" name="vehicleFringe" step="0.01" min="0" 
+                                   data-type="currency" aria-describedby="vehicleFringe-help">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="vehicleFringe" 
+                               tabindex="0" role="button" aria-label="Help for vehicle fringe benefit"></i>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="medicalFringe">
+                                <span data-translate="medical_fringe">Medical Aid Fringe</span>
+                                <span class="code-reference">(Code 3804)</span>
+                            </label>
+                            <input type="number" id="medicalFringe" name="medicalFringe" step="0.01" min="0" 
+                                   data-type="currency" aria-describedby="medicalFringe-help">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="medicalFringe" 
+                               tabindex="0" role="button" aria-label="Help for medical fringe benefit"></i>
+                        </div>
+                    </div>
+
+                    <!-- Tax Already Paid Section -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-receipt" aria-hidden="true"></i> <span data-translate="tax_paid">Tax Already Paid</span></h3>
+                        
+                        <div class="input-group">
+                            <label for="payePaid">
+                                <span data-translate="paye_paid">PAYE Paid</span>
+                                <span class="code-reference">(Code 4001)</span>
+                            </label>
+                            <input type="number" id="payePaid" name="payePaid" step="0.01" min="0" 
+                                   data-type="currency" aria-describedby="payePaid-help">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="payePaid" 
+                               tabindex="0" role="button" aria-label="Help for PAYE paid"></i>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="uifPaid">
+                                <span data-translate="uif_paid">UIF Paid</span>
+                                <span class="code-reference">(Code 4002)</span>
+                            </label>
+                            <input type="number" id="uifPaid" name="uifPaid" step="0.01" min="0" 
+                                   data-type="currency" aria-describedby="uifPaid-help">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="uifPaid" 
+                               tabindex="0" role="button" aria-label="Help for UIF paid"></i>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-outline btn-prev" id="prevBtn2" data-translate="previous">
+                        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                        <span>Previous</span>
+                    </button>
+                    <button type="button" class="btn btn-primary btn-next" id="nextBtn2" data-translate="next">
+                        <span>Next</span>
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 3: General Deductions -->
+        <div id="page3" class="page" role="tabpanel" aria-labelledby="nav3">
+            <div class="page-content">
+                <h2 class="page-title" id="page3Title" data-translate="general_deductions_title">
+                    <i class="fas fa-minus-circle" aria-hidden="true"></i>
+                    General Deductions
+                </h2>
+
+                <form class="form-grid auto-fit" id="deductionsForm" novalidate>
+                    <!-- Retirement Contributions -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-piggy-bank" aria-hidden="true"></i> <span data-translate="retirement_contributions">Retirement Contributions</span></h3>
+                        <p class="section-note" data-translate="retirement_limit_note">Combined limit: R350,000 or 27.5% of income</p>
+                        
+                        <div class="input-group">
+                            <label for="pension" data-translate="pension_fund">Pension Fund</label>
+                            <input type="number" id="pension" name="pension" step="0.01" min="0" max="350000" 
+                                   data-type="currency" aria-describedby="pension-help">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="pension" 
+                               tabindex="0" role="button" aria-label="Help for pension fund"></i>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="provident" data-translate="provident_fund">Provident Fund</label>
+                            <input type="number" id="provident" name="provident" step="0.01" min="0" max="350000" 
+                                   data-type="currency" aria-describedby="provident-help">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="provident" 
+                               tabindex="0" role="button" aria-label="Help for provident fund"></i>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="retirementAnnuity" data-translate="retirement_annuity">Retirement Annuity</label>
+                            <input type="number" id="retirementAnnuity" name="retirementAnnuity" step="0.01" min="0" max="350000" 
+                                   data-type="currency" aria-describedby="retirementAnnuity-help">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="retirementAnnuity" 
+                               tabindex="0" role="button" aria-label="Help for retirement annuity"></i>
+                        </div>
+                    </div>
+
+                    <!-- Medical Aid -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-heartbeat" aria-hidden="true"></i> <span data-translate="medical_aid">Medical Aid</span></h3>
+                        
+                        <div class="input-group">
+                            <label for="medicalAid" data-translate="medical_aid_contributions">Medical Aid Contributions</label>
+                            <input type="number" id="medicalAid" name="medicalAid" step="0.01" min="0" 
+                                   data-type="currency" aria-describedby="medicalAid-help">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="medicalAid" 
+                               tabindex="0" role="button" aria-label="Help for medical aid contributions"></i>
+                        </div>
+
+                        <div class="input-group compact">
+                            <label for="medicalMembers" data-translate="medical_members">Main Members</label>
+                            <input type="number" id="medicalMembers" name="medicalMembers" min="0" max="10" 
+                                   aria-describedby="medicalMembers-help">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="medicalMembers" 
+                               tabindex="0" role="button" aria-label="Help for medical aid members"></i>
+                        </div>
+
+                        <div class="input-group compact">
+                            <label for="medicalDependants" data-translate="medical_dependants">Dependants</label>
+                            <input type="number" id="medicalDependants" name="medicalDependants" min="0" max="20" 
+                                   aria-describedby="medicalDependants-help">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="medicalDependants" 
+                               tabindex="0" role="button" aria-label="Help for medical aid dependants"></i>
+                        </div>
+                    </div>
+
+                    <!-- Other Deductions -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-hand-holding-heart" aria-hidden="true"></i> <span data-translate="other_deductions">Other Deductions</span></h3>
+                        
+                        <div class="input-group">
+                            <label for="donations" data-translate="donations">Donations to PBOs</label>
+                            <input type="number" id="donations" name="donations" step="0.01" min="0" 
+                                   data-type="currency" aria-describedby="donations-help">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="donations" 
+                               tabindex="0" role="button" aria-label="Help for donations"></i>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="additionalMedical" data-translate="additional_medical">Additional Medical Expenses</label>
+                            <input type="number" id="additionalMedical" name="additionalMedical" step="0.01" min="0" 
+                                   data-type="currency" aria-describedby="additionalMedical-help">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="additionalMedical" 
+                               tabindex="0" role="button" aria-label="Help for additional medical expenses"></i>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-outline btn-prev" id="prevBtn3" data-translate="previous">
+                        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                        <span>Previous</span>
+                    </button>
+                    <button type="button" class="btn btn-primary btn-next" id="nextBtn3" data-translate="next">
+                        <span>Next</span>
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 4: Advanced Deductions -->
+        <div id="page4" class="page" role="tabpanel" aria-labelledby="nav4">
+            <div class="page-content">
+                <h2 class="page-title" id="page4Title" data-translate="advanced_deductions_title">
+                    <i class="fas fa-cogs" aria-hidden="true"></i>
+                    Advanced Deductions
+                </h2>
+
+                <form class="form-grid auto-fit" id="advancedForm" novalidate>
+                    <!-- Occupation-specific deductions -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-user-tie" aria-hidden="true"></i> <span data-translate="occupation_specific">Occupation-Specific Deductions</span></h3>
+                        
+                        <div class="input-group">
+                            <label for="occupation" data-translate="occupation">Occupation</label>
+                            <select id="occupation" name="occupation" aria-describedby="occupation-help" data-tooltip="occupation">
+                                <option value="" data-translate="select_occupation">Select your occupation</option>
+                                <option value="it" data-translate="occupation_it">IT Professional</option>
+                                <option value="healthcare" data-translate="occupation_healthcare">Healthcare Worker</option>
+                                <option value="education" data-translate="occupation_education">Educator</option>
+                                <option value="finance" data-translate="occupation_finance">Finance Professional</option>
+                                <option value="engineering" data-translate="occupation_engineering">Engineer</option>
+                                <option value="legal" data-translate="occupation_legal">Legal Professional</option>
+                                <option value="agriculture" data-translate="occupation_agriculture">Agricultural Worker</option>
+                                <option value="mining" data-translate="occupation_mining">Mining Professional</option>
+                                <option value="freelance" data-translate="occupation_freelance">Freelancer/Self-Employed</option>
+                                <option value="other" data-translate="occupation_other">Other</option>
+                            </select>
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="occupation" 
+                               tabindex="0" role="button" aria-label="Help for occupation"></i>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="professionalExpenses" data-translate="professional_expenses">Professional Development Expenses</label>
+                            <input type="number" id="professionalExpenses" name="professionalExpenses" step="0.01" min="0" 
+                                   data-type="currency" aria-describedby="professionalExpenses-help">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="professionalExpenses" 
+                               tabindex="0" role="button" aria-label="Help for professional expenses"></i>
+                        </div>
+                    </div>
+
+                    <!-- Travel deductions -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-car" aria-hidden="true"></i> <span data-translate="travel_deductions">Travel Deductions</span></h3>
+                        
+                        <div class="input-group">
+                            <label for="travelMethod" data-translate="travel_method">Calculation Method</label>
+                            <select id="travelMethod" name="travelMethod" aria-describedby="travelMethod-help">
+                                <option value="logbook" data-translate="logbook_method">Logbook Method (R4.76/km)</option>
+                                <option value="actual" data-translate="actual_method">Actual Expenses Method</option>
+                            </select>
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="travelMethod" 
+                               tabindex="0" role="button" aria-label="Help for travel method"></i>
+                        </div>
+
+                        <div class="input-group" id="businessKmGroup">
+                            <label for="businessKm" data-translate="business_km">Business Kilometers</label>
+                            <input type="number" id="businessKm" name="businessKm" min="0" max="100000" 
+                                   aria-describedby="businessKm-help">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="businessKm" 
+                               tabindex="0" role="button" aria-label="Help for business kilometers"></i>
+                        </div>
+
+                        <div class="travel-expenses" id="travelExpensesGroup" style="display: none;">
+                            <div class="input-group">
+                                <label for="fuelExpenses" data-translate="fuel_expenses">Fuel Expenses</label>
+                                <input type="number" id="fuelExpenses" name="fuelExpenses" step="0.01" min="0" 
+                                       data-type="currency" aria-describedby="fuelExpenses-help">
+                                <i class="fas fa-question-circle tooltip-icon" data-tooltip="fuelExpenses" 
+                                   tabindex="0" role="button" aria-label="Help for fuel expenses"></i>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="maintenanceExpenses" data-translate="maintenance_expenses">Maintenance & Repairs</label>
+                                <input type="number" id="maintenanceExpenses" name="maintenanceExpenses" step="0.01" min="0" 
+                                       data-type="currency" aria-describedby="maintenanceExpenses-help">
+                                <i class="fas fa-question-circle tooltip-icon" data-tooltip="maintenanceExpenses" 
+                                   tabindex="0" role="button" aria-label="Help for maintenance expenses"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Renewable energy -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-solar-panel" aria-hidden="true"></i> <span data-translate="renewable_energy">Renewable Energy (Section 12B)</span></h3>
+                        
+                        <div class="input-group">
+                            <label for="solarInstallation" data-translate="solar_installation">Solar Installation</label>
+                            <input type="number" id="solarInstallation" name="solarInstallation" step="0.01" min="0" 
+                                   data-type="currency" aria-describedby="solarInstallation-help">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="solarInstallation" 
+                               tabindex="0" role="button" aria-label="Help for solar installation"></i>
+                        </div>
+                    </div>
+
+                    <!-- Home office -->
+                    <div class="form-section">
+                        <h3><i class="fas fa-home" aria-hidden="true"></i> <span data-translate="home_office">Home Office</span></h3>
+                        
+                        <div class="input-group">
+                            <label for="homeOffice" data-translate="home_office_expenses">Home Office Expenses</label>
+                            <input type="number" id="homeOffice" name="homeOffice" step="0.01" min="0" 
+                                   data-type="currency" aria-describedby="homeOffice-help">
+                            <i class="fas fa-question-circle tooltip-icon" data-tooltip="homeOffice" 
+                               tabindex="0" role="button" aria-label="Help for home office expenses"></i>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-outline btn-prev" id="prevBtn4" data-translate="previous">
+                        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                        <span>Previous</span>
+                    </button>
+                    <button type="button" class="btn btn-primary btn-next" id="nextBtn4" data-next="5" data-translate="next">
+                        <span>Next</span>
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 5: Tax Summary -->
+        <div id="page5" class="page" role="tabpanel" aria-labelledby="nav5">
+            <div class="page-content">
+                <h2 class="page-title" id="page5Title" data-translate="tax_summary_title">
+                    <i class="fas fa-chart-line" aria-hidden="true"></i>
+                    Tax Summary
+                </h2>
+
+                <div class="summary-grid">
+                    <!-- Income Summary -->
+                    <div class="summary-card">
+                        <h3><i class="fas fa-plus" aria-hidden="true"></i> <span data-translate="income_summary">Income Summary</span></h3>
+                        <div class="summary-row">
+                            <span class="summary-label" data-translate="gross_income">Gross Income:</span>
+                            <span class="summary-value" id="grossIncomeResult">R 0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label" data-translate="taxable_income">Taxable Income:</span>
+                            <span class="summary-value" id="taxableIncomeResult">R 0.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Deductions Summary -->
+                    <div class="summary-card">
+                        <h3><i class="fas fa-minus" aria-hidden="true"></i> <span data-translate="deductions_summary">Deductions Summary</span></h3>
+                        <div class="summary-row">
+                            <span class="summary-label" data-translate="total_deductions">Total Deductions:</span>
+                            <span class="summary-value" id="totalDeductionsResult">R 0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label" data-translate="tax_credits">Tax Credits:</span>
+                            <span class="summary-value" id="taxCreditsResult">R 0.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Tax Calculation -->
+                    <div class="summary-card">
+                        <h3><i class="fas fa-calculator" aria-hidden="true"></i> <span data-translate="tax_calculation">Tax Calculation</span></h3>
+                        <div class="summary-row">
+                            <span class="summary-label" data-translate="tax_before_rebates">Tax Before Rebates:</span>
+                            <span class="summary-value" id="taxBeforeRebatesResult">R 0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label" data-translate="tax_rebates">Tax Rebates:</span>
+                            <span class="summary-value" id="taxRebatesResult">R 0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label" data-translate="tax_payable">Tax Payable:</span>
+                            <span class="summary-value" id="taxPayableResult">R 0.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Final Result -->
+                    <div class="summary-card final-result">
+                        <h3><i class="fas fa-trophy" aria-hidden="true"></i> <span data-translate="final_result">Final Result</span></h3>
+                        <div class="summary-row">
+                            <span class="summary-label" data-translate="tax_paid">Tax Already Paid:</span>
+                            <span class="summary-value" id="taxPaidResult">R 0.00</span>
+                        </div>
+                        <div class="summary-row final">
+                            <span class="summary-label" id="finalResultLabel" data-translate="amount_due">Amount Due:</span>
+                            <span class="summary-value" id="finalResultValue">R 0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span class="summary-label" data-translate="effective_rate">Effective Tax Rate:</span>
+                            <span class="summary-value" id="effectiveRateResult">0.00%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-outline btn-prev" id="prevBtn5" data-translate="previous">
+                        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                        <span>Previous</span>
+                    </button>
+                    
+                    <div class="action-buttons">
+                        <button type="button" class="btn btn-secondary" id="calculateBtn" data-translate="calculate">
+                            <i class="fas fa-calculator" aria-hidden="true"></i>
+                            <span>Calculate Tax</span>
+                        </button>
+                        
+                        <input type="hidden" name="csrf_token" id="csrf_token" value="{{ csrf_token() }}">
+                        <button type="button" class="btn btn-success" id="generatePdfBtn" data-translate="generate_pdf" disabled>
+                            <i class="fas fa-file-pdf" aria-hidden="true"></i>
+                            <span>Generate PDF (R99)</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Sticky footer for mobile -->
+    <div class="sticky-footer" id="stickyFooter" style="display: none;">
+        <button type="button" class="btn btn-primary" id="stickyNextBtn">
+            <span data-translate="continue">Continue</span>
+            <i class="fas fa-arrow-right" aria-hidden="true"></i>
+        </button>
+    </div>
+
+    <!-- Loading overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+            <p data-translate="loading">Loading...</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="tax-constants-2025.js"></script>
+    <script src="language-handler.js"></script>
+    <script src="tooltip-handler.js"></script>
+    <script src="input-validation.js"></script>
+    <script src="pdf-generator.js"></script>
+    <script src="app.js"></script>
+    <script src="patch.js"></script>
+
+    <!-- Screen reader announcements -->
+    <div id="announcements" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+</body>
+</html>
+
