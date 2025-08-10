@@ -1,0 +1,80 @@
+{
+  "faqs": [
+    {
+      "id": "what-is-taxeasy",
+      "question": "TaxEasy_ZA ke eng?",
+      "answer": "TaxEasy_ZA ke sesebelisoa sa mahala sa ho bala lekhetho se etselitsoeng bahlahisi ba lekhetho ba Afrika Borwa. Se u thusa ho lekanya boikarabelo ba hao ba lekhetho la chelete le ho utloisisa mefuta e fapaneng ea litefiso tse u ka li nkang."
+    },
+    {
+      "id": "is-data-safe",
+      "question": "Na data ea ka ea botho e bolokehile?",
+      "answer": "E, ka ho feletseng. TaxEasy_ZA e lumellana le POPIA 'me ha e boloke kapa e bokelle tlhahisoleseding efe kapa efe ea hao ea botho. Dipalo tsohle di etsoa sebakeng sa hao sa marang-rang."
+    },
+    {
+      "id": "what-tax-year",
+      "question": "Ke selemo sefe sa lekhetho seo sesebelisoa se se akaretsang?",
+      "answer": "Sesebelisoa sa ho bala se etselitsoe selemo sa lekhetho sa 2025 (1 Hlakubele 2024 ho isa ho 28 Hlakola 2025) se sebelisa litafole tsa morao-rao tsa lekhetho la SARS le litekanyetso."
+    },
+    {
+      "id": "irp5-codes",
+      "question": "Likhoutu tsa IRP5 ke eng 'me ke li fumana hokae?",
+      "answer": "Likhoutu tsa IRP5 ke likhoutu tse tloaelehileng tse sebelisoang ke SARS ho hlophisa mefuta e fapaneng ea chelete le litefiso. U ka fumana likhoutu tsena setifikeiting sa hao sa IRP5 se fanoeng ke mohiri oa hao."
+    },
+    {
+      "id": "medical-aid-credits",
+      "question": "Likreiti tsa lekhetho la thuso ea bongaka li sebetsa joang?",
+      "answer": "Likreiti tsa lekhetho la thuso ea bongaka ke likreiti tsa khoeli tse fokotsang boikarabelo ba hao ba lekhetho. Ka 2025, likreiti ke R347 ka khoeli bakeng sa setho se ka sehloohong le ea ikamahanyang oa pele, le R234 bakeng sa ba bang ba ikamahanyang."
+    },
+    {
+      "id": "retirement-contributions",
+      "question": "Moeli oa litefiso tsa letlotlo la pension ke ofe?",
+      "answer": "Ka 2025, u ka ntša ho fihlela 27.5% ea chelete ea hao kapa chelete e lefelloang lekhetho, e lekantsoeng ho R350,000 ka selemo ho pholletsa le matlotlo ohle a pension."
+    },
+    {
+      "id": "travel-allowance",
+      "question": "Tefello ea leeto e lefelloa lekhetho joang?",
+      "answer": "Ditefello tsa maeto di lefelloa lekhetho ka ho feletseng joalo ka chelete (Khoutu 3701). Leha ho le joalo, u ka batla ditjeo tsa 'nete tsa leeto la khoebo e le litefiso haeba u boloka buka ea leeto."
+    },
+    {
+      "id": "home-office-deduction",
+      "question": "Na nka batla ditjeo tsa ofisi ea lapeng?",
+      "answer": "E, haeba u sebetsa lapeng kamehla bakeng sa mohiri oa hao kapa u tsamaisa khoebo lapeng. Tefo e baloa ho latela sebaka sa fatše se sebelisoang feela bakeng sa merero ea khoebo."
+    },
+    {
+      "id": "solar-deductions",
+      "question": "Ke litefiso life tsa matla a nchafatsoang tse fumanehang?",
+      "answer": "Karolo ea 12B e lumella tefo ea 100% ea li-heater tsa metsi a letsatsi tse lumellanang le liphanele tsa photovoltaic selemong sa ho kenya, ho latela maemo a itseng."
+    },
+    {
+      "id": "rental-income",
+      "question": "Chelete ea ho hira e lefelloa lekhetho joang?",
+      "answer": "Chelete ea ho hira e lefelloa lekhetho ka ho feletseng, empa u ka ntša ditjeo tse kang rente ea kadimo, lekhetho, inshorense, tokiso, le ho fokotseha ha boleng (5% ka selemo ho meaho)."
+    },
+    {
+      "id": "interest-exemption",
+      "question": "Na ho na le ho lokolloa bakeng sa chelete ea rente?",
+      "answer": "E, ka 2025 ho lokolloa ha selemo ke R23,800 bakeng sa batho ba ka tlase ho 65 le R34,500 bakeng sa ba lilemo tse 65 le ho feta."
+    },
+    {
+      "id": "dividend-exemption",
+      "question": "Na dikabo ha di lefelloe lekhetho?",
+      "answer": "Dikabo tsa lehae di na le ho lokolloa ha selemo ha R30,000 bakeng sa batho. Ditekanyetso tse kaholimo ho tsena di kenyeletsoa lekhetho la dikabo ho 20%."
+    },
+    {
+      "id": "professional-fees",
+      "question": "Na nka ntša ditefiso tsa botho ba setsebi?",
+      "answer": "E, ditefiso tsa botho ba setsebi le ditjeo tsa CPD di a ntšoa tlas'a karolo ea 11(a) haeba di amana ka kotloloho le mesebetsi ea hao ea ho fumana chelete."
+    },
+    {
+      "id": "donations-limit",
+      "question": "Moeli oa dineo tsa lerato ke ofe?",
+      "answer": "Dineo ho mekhatlo e amohetsoeng ke SARS (karolo ea 18A) di a ntšoa ho fihlela 10% ea chelete ea hao e lefelloang lekhetho."
+    },
+    {
+      "id": "age-rebates",
+      "question": "Litefiso tsa lekhetho tse amanang le lilemo li sebetsa joang?",
+      "answer": "Ka 2025: Tefiso ea pele R17,235 (lilemo tsohle), Tefiso ea bobeli R9,444 (65+), Tefiso ea boraro R3,145 (75+). Litefiso tsena li fokotsa boikarabelo ba hao ba lekhetho ka kotloloho."
+    }
+  ]
+}
+

@@ -1,0 +1,79 @@
+{
+  "faqs": [
+    {
+      "id": "what-is-taxeasy",
+      "question": "Yini i-TaxEasy_ZA?",
+      "answer": "I-TaxEasy_ZA yisixhobo esisimahla esikunceda ukubala irhafu yengeniso yaseNingizimu Afrika. Ikusiza ukuqikelela inhlawulo yakho yerhafu futhi uqonde izaphulelo ezingokufanele."
+    },
+    {
+      "id": "is-data-safe",
+      "question": "Ingabe idatha yami ibukelwe?",
+      "answer": "Yebo, i-TaxEasy_ZA ihlonipha umthetho we-POPIA futhi ayigcini noma ayikolobi idatha yakho yomuntu. Zonke izibalo zenziwa kuphela kumakhalekhukhwini akho."
+    },
+    {
+      "id": "what-tax-year",
+      "question": "Ihlela unyaka luni werhafu?",
+      "answer": "Le khalukuletha ihlela unyaka werhafu ka-2025 (1 Mashi 2024 – 28 Febhuwari 2025) egcinelwe amatiphu namasu e-SARS okwamanje."
+    },
+    {
+      "id": "irp5-codes",
+      "question": "Yiziphi i-IRP5 codes futhi ngazithola kuphi?",
+      "answer": "Lezi zinkomba ezisemthethweni ezihlela uhlobo lwezimali nezaphulelo. Zitholakala kusetifiketi sakho se-IRP5 esinikezwa umqondisi wakho."
+    },
+    {
+      "id": "medical-aid-credits",
+      "question": "I-medical aid tax credits iyasebenza kanjani?",
+      "answer": "Kwezi kredithi zanyanga eziwenza inhlawulo yakho yethafa inciphise. Ngo-2025: R347 ngenyanga kumeluleki wokuqala nowokuqandayo, R234 kulabo okuqashwa abalandelayo."
+    },
+    {
+      "id": "retirement-contributions",
+      "question": "Umkhawulo wemali ethunyelwayo ematikiseni wokugera nini?",
+      "answer": "Ungakhupha kufinyelela ku-27.5% yemali yakho ephethelelayo noma yokulethwa yirhafu, ube ngumkhawulo we-R350,000 ngonyaka."
+    },
+    {
+      "id": "travel-allowance",
+      "question": "I-travel allowance ithathwa kanjani irhafu?",
+      "answer": "Ithathwa irhafu ngokuphelele (ikhodi 3701). Nokho, ungacela izindleko zokuhamba kweshishini uma ubhalela incwadi yokuhamba."
+    },
+    {
+      "id": "home-office-deduction",
+      "question": "Ngingacela izindleko ze-ofisi yasekhaya?",
+      "answer": "Yebo, uma usenze umsebenzi wakho ekhaya noma uphatha ibhizinisi lapho. Le nkontsho ibalwa ngokwesibili somkhathazo wendawo esetshenziswa kuphela ngezinjongo zeshishini."
+    },
+    {
+      "id": "solar-deductions",
+      "question": "Zikhona izaphulelo zikagesi olusolwa yilanga?",
+      "answer": "Yebo, isigaba 12B sivumela ukukhuphwa okungu-100% kwezinhlanhla zikagesi elisetshenziswa ukufudumeza amanzi neziphaneli ze-PV unyaka ozifakelwe wona."
+    },
+    {
+      "id": "rental-income",
+      "question": "Imali yokuqasha ithathwa kanjani irhafu?",
+      "answer": "Ithathwa irhafu ngokuphelele, kodwa ungakhupha izindleko ezifana nenzala yebhondi, ama-rates, inshurensi, ukulungiswa kanye nokuwehla kwexabiso (5% ngonyaka)."
+    },
+    {
+      "id": "interest-exemption",
+      "question": "Kukhona ukukhululwa kwenzala?",
+      "answer": "Yebo, ngo-2025: R23,800 ngonyaka kubantu abangaphansi kuka-65, R34,500 kubantu abangama-65 noma ngaphezulu."
+    },
+    {
+      "id": "dividend-exemption",
+      "question": "Ngabe izabelo azithathi irhafu?",
+      "answer": "Izabelo zendawo zinokukhululwa lwangaphakathi kuka-R30,000 ngonyaka. Okwedlule lokho kuthathwa irhafu ye-20%."
+    },
+    {
+      "id": "professional-fees",
+      "question": "Ngingacela imirhumo yobungcweti?",
+      "answer": "Yebo, imirhumo yobungcweti kanye ne-CPD ziyakhuphwa ngaphansi kwesigaba 11(a) uma zihambisana nemisebenzi yakho."
+    },
+    {
+      "id": "donations-limit",
+      "question": "Umkhawulo wemali enikelwayo yokuzekela yini?",
+      "answer": "Imali enikelwa izinhlangothi eziqinisekiswa yi-SARS (isigaba 18A) iyakhuphwa kufinyelela ku-10% yemali yakho ephathelene nerhafu."
+    },
+    {
+      "id": "age-rebates",
+      "question": "Izaphulelo ezihlobene neminyaka zisebenza kanjani?",
+      "answer": "Ngo-2025: Isaphulelo sokuqala R17,235 (yonke iminyaka), sesibili R9,444 (65+), sesithathu R3,145 (75+). Zona zikhupha inhlawulo yakho ngokuthe ngqo."
+    }
+  ]
+}

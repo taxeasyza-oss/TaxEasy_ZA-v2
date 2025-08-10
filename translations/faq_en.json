@@ -1,0 +1,95 @@
+[
+  {
+    "question": "What tax year does this calculator cover?",
+    "answer": "This calculator is designed for the 2025 tax year, which covers the period from 1 March 2024 to 28 February 2025. It uses the official SARS tax tables and rates for this period."
+  },
+  {
+    "question": "Is this calculator accurate?",
+    "answer": "This calculator uses the official SARS tax tables, rates, and rebates for 2025. However, it's designed for estimation purposes only and should not replace professional tax advice. Complex tax situations may require consultation with a tax professional."
+  },
+  {
+    "question": "What documents do I need?",
+    "answer": "You'll need your IRP5 certificate from your employer, medical aid certificates, retirement fund certificates, investment statements, rental income records, and any other relevant tax documents for the 2025 tax year."
+  },
+  {
+    "question": "Can I save my calculation?",
+    "answer": "Currently, the calculator doesn't save data between sessions. We recommend completing your calculation in one session and generating a PDF copy for your records."
+  },
+  {
+    "question": "Where do I find the codes mentioned (3601, 3605, etc.)?",
+    "answer": "These codes correspond to the boxes on your IRP5 certificate. For example, code 3601 is your basic salary, 3605 is bonus payments, etc. Your employer provides this certificate annually."
+  },
+  {
+    "question": "What if I have multiple employers?",
+    "answer": "Add up all income from all employers. If you have multiple IRP5 certificates, combine the amounts for each category (basic salary, bonuses, etc.)."
+  },
+  {
+    "question": "How do I handle foreign income?",
+    "answer": "Foreign income should be converted to South African Rand using the average exchange rate for the tax year. Foreign taxes paid may be eligible for credit against South African tax."
+  },
+  {
+    "question": "What's the limit on retirement fund contributions?",
+    "answer": "For 2025, retirement fund contributions are limited to 27.5% of your remuneration or R350,000, whichever is lower. This includes pension, provident, and retirement annuity contributions combined."
+  },
+  {
+    "question": "Can I claim home office expenses?",
+    "answer": "Yes, if you use part of your home exclusively for work purposes. You can claim a portion of expenses like electricity, rates, insurance, and maintenance. The area must be used solely for work and you need a letter from your employer confirming remote work is required."
+  },
+  {
+    "question": "What medical expenses can I claim?",
+    "answer": "You can claim medical aid contributions (which give you tax credits) and additional medical expenses not covered by your medical aid, such as gap cover, dental work, and chronic medication."
+  },
+  {
+    "question": "What are the age-related rebates for 2025?",
+    "answer": "Primary rebate: R17,235 for all taxpayers. Additional rebate of R9,444 for taxpayers 65 and older. Further additional rebate of R3,145 for taxpayers 75 and older."
+  },
+  {
+    "question": "How do medical aid tax credits work?",
+    "answer": "For 2025, you get a monthly tax credit of R347 per main member and R234 per dependant on your medical aid. This is a direct reduction in your tax liability."
+  },
+  {
+    "question": "What are the interest and dividend exemptions?",
+    "answer": "For 2025, the first R23,800 of interest income is exempt for taxpayers under 65. For those 65 and older, the first R34,500 of interest is exempt. Dividend exemption is R23,800 for all ages."
+  },
+  {
+    "question": "What rental expenses can I deduct?",
+    "answer": "You can deduct bond interest, rates and taxes, insurance, repairs and maintenance, agent fees, advertising costs, and depreciation on the building (2.5% per year)."
+  },
+  {
+    "question": "How does rental depreciation work?",
+    "answer": "You can claim 2.5% of the building's cost (excluding land) as depreciation each year. This is calculated on the original cost or market value when you started renting, whichever is lower."
+  },
+  {
+    "question": "What's the business kilometer rate for 2025?",
+    "answer": "The SARS business kilometer rate for 2025 is R4.20 per kilometer. You can only claim business-related travel, not commuting to your regular workplace."
+  },
+  {
+    "question": "Can I claim cellphone and internet expenses?",
+    "answer": "Yes, but only the business portion. If you use your cellphone 50% for business, you can claim 50% of the costs. Keep detailed records to support your claim."
+  },
+  {
+    "question": "What occupation-specific deductions are available?",
+    "answer": "The calculator includes specific deductions for IT professionals (software licenses, certifications), healthcare workers (medical equipment, professional insurance), educators (classroom supplies), and many other occupations. Select your occupation to see relevant deductions."
+  },
+  {
+    "question": "How do renewable energy deductions work?",
+    "answer": "Under Section 12B, you can claim 100% deduction for solar water heaters and solar PV panels in the year of installation. The equipment must be installed at your primary residence."
+  },
+  {
+    "question": "When is the tax return deadline for 2025?",
+    "answer": "For individuals using eFiling: 31 October 2025. For manual returns: 31 July 2025. For provisional taxpayers: 31 January 2026. Submit early to avoid penalties and get refunds sooner."
+  },
+  {
+    "question": "What happens if I file late?",
+    "answer": "SARS imposes penalties for late filing, starting at R250 per month or part thereof. Additional penalties apply for outstanding tax. File as soon as possible to minimize penalties."
+  },
+  {
+    "question": "When should I consult a tax professional?",
+    "answer": "Consider professional help if you have complex investments, multiple income sources, own a business, have foreign income, or if your tax situation has changed significantly."
+  },
+  {
+    "question": "Where can I get more information?",
+    "answer": "Visit the SARS website (www.sars.gov.za), call the SARS Contact Centre (0800 00 7277), or visit your nearest SARS branch. The SARS website has comprehensive guides and tax tables."
+  }
+]
+

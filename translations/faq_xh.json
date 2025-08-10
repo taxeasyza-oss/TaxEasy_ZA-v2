@@ -1,0 +1,81 @@
+{
+  "faqs": [
+    {
+      "id": "what-is-taxeasy",
+      "question": "Yintoni iTaxEasy_ZA?",
+      "answer": "I-TaxEasy_ZA sisixhobo sokubala irhafu esisimahla esiyilelwe ngokukodwa abahlawuli berhafu baseMzantsi Afrika. Ikunceda ukuba uqikelele uxanduva lwakho lwerhafu yengeniso kwaye uqonde izinto ezahlukeneyo onokuzikhupha kwirhafu."
+    },
+    {
+      "id": "is-data-safe",
+      "question": "Ngaba idatha yam yobuqu ikhuselekile?",
+      "answer": "Ewe, ngokupheleleyo. I-TaxEasy_ZA ihambelana ne-POPIA kwaye ayigcini okanye ayiqokeleli nayiphi na idatha yakho yobuqu. Zonke izibalo zenziwa kwi-browser yakho."
+    },
+    {
+      "id": "what-tax-year",
+      "question": "Nguwuphi unyaka werhafu olu qikelelo oluwugubungelayo?",
+      "answer": "Isixhobo sokubala senzelwe unyaka werhafu ka-2025 (1 Matshi 2024 ukuya ku-28 Februwari 2025) kusetyenziswa iitafile zerhafu zakutshanje ze-SARS kunye namazinga."
+    },
+    {
+      "id": "irp5-codes",
+      "question": "Zithini iikhowudi ze-IRP5 kwaye ndingazifumana phi?",
+      "answer": "Iikhowudi ze-IRP5 ziikhowudi ezisemgangathweni ezisetyenziswa yi-SARS ukuhlela iintlobo ezahlukeneyo zengeniso kunye nezinto ezikhutshwayo. Ungazifumana ezi khowudi kwisatifikethi sakho se-IRP5 esinikezelwe ngumqeshi wakho."
+    },
+    {
+      "id": "medical-aid-credits",
+      "question": "Zisebenza njani iikhredithi zerhafu zoncedo lwezonyango?",
+      "answer": "Iikhredithi zerhafu zoncedo lwezonyango ziikhredithi zenyanga ezinciphisa uxanduva lwakho lwerhafu. Ngo-2025, iikhredithi ziyi-R347 ngenyanga kumalungu aphambili kunye nomntu oxhomekeke kuye wokuqala, kunye ne-R234 kubaxhomekeke kubo abongezelelweyo."
+    },
+    {
+      "id": "retirement-contributions",
+      "question": "Yintoni umda weminikelo yengxowa-mali yomhlalaphantsi?",
+      "answer": "Ngo-2025, unokukhupha ukuya kwi-27.5% yengeniso yakho okanye ingeniso erhafiswayo, enomda kwi-R350,000 ngonyaka kuzo zonke iingxowa-mali zomhlalaphantsi."
+    },
+    {
+      "id": "travel-allowance",
+      "question": "Irhafiswa njani imali yohambo?",
+      "answer": "Iimali zohambo zirhafiswa ngokupheleleyo njengengeniso (Ikhowudi 3701). Nangona kunjalo, unokubanga iindleko zohambo lweshishini njengezinto ezikhutshwayo ukuba ugcina incwadi yohambo."
+    },
+    {
+      "id": "home-office-deduction",
+      "question": "Ndingazibanga iindleko zeofisi yasekhaya?",
+      "answer": "Ewe, ukuba usebenza ekhaya rhoqo kumqeshi wakho okanye uqhuba ishishini ekhaya. Ukukhutshwa kubalwa ngokusekelwe kwindawo yomgangatho esetyenziselwa kuphela iinjongo zeshishini."
+    },
+    {
+      "id": "solar-deductions",
+      "question": "Zithini izinto ezikhutshwayo zamandla ahlaziyekayo?",
+      "answer": "Icandelo 12B livumela ukukhutshwa kwe-100% kwezifudumezi zamanzi zelanga ezifanelekileyo kunye neepaneli ze-photovoltaic ngonyaka wofakelo, ngokuxhomekeke kwiimeko ezithile."
+    },
+    {
+      "id": "rental-income",
+      "question": "Irhafiswa njani ingeniso yokuqeshisa?",
+      "answer": "Ingeniso yokuqeshisa irhafiswa ngokupheleleyo, kodwa unokukhupha iindleko ezifana nenzala yebhondi, irhafu, i-inshurensi, ukulungiswa, kunye nokuhla kwexabiso (5% ngonyaka kwizakhiwo)."
+    },
+    {
+      "id": "interest-exemption",
+      "question": "Ngaba kukho ukukhutshwa kwenzala?",
+      "answer": "Ewe, ngo-2025 ukukhutshwa konyaka kuyi-R23,800 kubantu abangaphantsi kwe-65 kunye ne-R34,500 kwabo baneminyaka engama-65 nangaphezulu."
+    },
+    {
+      "id": "dividend-exemption",
+      "question": "Ngaba izabelo azirhafiswa?",
+      "answer": "Izabelo zasekhaya zinekhutshwa lonyaka le-R30,000 kubantu. Izixa ezingaphezulu kwesi zixhomekeke kwirhafu yezabelo kwi-20%."
+    },
+    {
+      "id": "professional-fees",
+      "question": "Ndingazikhupha iintlawulo zobulungu bobungcali?",
+      "answer": "Ewe, iintlawulo zobulungu bobungcali kunye neendleko ze-CPD ziyakhuphwa phantsi kwecandelo 11(a) ukuba zinxulumene ngokuthe ngqo nemisebenzi yakho yokufumana ingeniso."
+    },
+    {
+      "id": "donations-limit",
+      "question": "Yintoni umda weminikelo yesisa?",
+      "answer": "Iminikelo kwizinto ezivunyiweyo yi-SARS (icandelo 18A) iyakhutshwa ukuya kwi-10% yengeniso yakho erhafiswayo."
+    },
+    {
+      "id": "age-rebates",
+      "question": "Zisebenza njani izaphulelo zerhafu ezinxulumene neminyaka?",
+      "answer": "Ngo-2025: Isaphulelo sokuqala R17,235 (yonke iminyaka), Isaphulelo sesibini R9,444 (65+), Isaphulelo sesithathu R3,145 (75+). Ezi zaphulelo zinciphisa uxanduva lwakho lwerhafu ngokuthe ngqo."
+    }
+  ]
+}
+
+
