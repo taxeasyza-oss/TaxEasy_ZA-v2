@@ -1,329 +1,179 @@
-// language-handler.js - ENHANCED
-import { SUPPORTED_LANGUAGES } from './config.js';
+// Language integration for app.js
+// This file handles the integration between the main app and language system
 
-// Enhanced translation validation with comprehensive key checking
-export function validateTranslations(lang, translations) {
-    // Core required translation keys for the tax application
-    const requiredKeys = [
-        // Navigation and main interface
-        'title', 'tagline', 'nav_personal', 'nav_income', 
-        'nav_deductions', 'nav_advanced', 'nav_summary',
+// Initialize language system when DOM is ready
+document.addEventListener('DOMContentLoaded', async function() {
+    console.log('Initializing language system...');
+    
+    // Initialize language system
+    const initialLang = initializeLanguageSystem();
+    
+    // Load initial translations
+    await loadLanguageTranslations(initialLang);
+    
+    // Apply initial translations
+    applyTranslations(initialLang);
+    
+    // Set up language change listener
+    document.addEventListener('languageChanged', function(event) {
+        const newLang = event.detail.language;
+        console.log('Language changed to:', newLang);
         
-        // Personal information section
-        'personal_info', 'full_name', 'id_passport', 'age', 'occupation',
-        'marital_status', 'tax_year', 'resident_status',
-        
-        // Income section
-        'income_section', 'basic_salary', 'bonus', 'commission', 'overtime',
-        'travel_allowance', 'other_allowances', 'fringe_benefits',
-        'vehicle_fringe', 'medical_fringe', 'housing_fringe', 'meals_fringe',
-        'other_fringe', 'investment_income', 'interest_income', 'dividend_income',
-        'rental_income', 'other_income',
-        
-        // Tax paid section
-        'tax_paid', 'paye_paid', 'uif_paid', 'provisional_tax_paid',
-        
-        // Deductions section
-        'deductions_section', 'retirement_contributions', 'pension',
-        'provident', 'retirement_annuity', 'medical_aid', 'medical_members',
-        'medical_dependants', 'additional_medical', 'donations',
-        
-        // Travel deductions
-        'travel_deductions', 'business_km', 'fuel_expenses', 'maintenance_expenses',
-        'insurance_expenses', 'toll_fees', 'parking_fees',
-        
-        // Professional development
-        'professional_development', 'cpd_expenses', 'membership_fees',
-        'books_materials', 'tools_equipment',
-        
-        // Other deductions
-        'other_deductions', 'home_office', 'legal_fees', 'allowance_expenses',
-        
-        // Renewable energy
-        'renewable_energy', 'solar_water_heater', 'solar_pv', 'other_renewable',
-        
-        // Summary and results
-        'summary_section', 'total_income', 'total_deductions', 'taxable_income',
-        'tax_liability', 'tax_paid_total', 'refund_due', 'amount_owing',
-        
-        // Buttons and actions
-        'next', 'previous', 'calculate', 'download_pdf', 'save_progress',
-        'reset_form', 'help', 'faq', 'contact',
-        
-        // Validation messages
-        'required_field', 'invalid_format', 'amount_too_high', 'amount_too_low',
-        'invalid_id_number', 'invalid_age', 'calculation_error',
-        
-        // Tooltips (basic set)
-        'tooltip_full_name', 'tooltip_id_passport', 'tooltip_age', 'tooltip_occupation',
-        'tooltip_basic_salary', 'tooltip_bonus', 'tooltip_commission', 'tooltip_overtime',
-        'tooltip_travel_allowance', 'tooltip_fringe_benefits', 'tooltip_pension',
-        'tooltip_medical_aid', 'tooltip_donations', 'tooltip_business_km',
-        'tooltip_home_office', 'tooltip_renewable_energy',
-        
-        // Status messages
-        'loading', 'saving', 'saved', 'error_occurred', 'try_again',
-        'form_incomplete', 'calculation_complete', 'pdf_generated',
-        
-        // Language selector
-        'select_language', 'language_changed',
-        
-        // Footer and legal
-        'disclaimer', 'privacy_policy', 'terms_of_service', 'copyright',
-        
-        // Error handling
-        'network_error', 'server_error', 'validation_failed', 'unexpected_error'
-    ];
-
-    if (!translations || typeof translations !== 'object') {
-        console.error(`Invalid translations object for language: ${lang}`);
-        return false;
-    }
-
-    const missingKeys = requiredKeys.filter(key => {
-        const value = translations[key];
-        return !value || (typeof value === 'string' && value.trim() === '');
-    });
-
-    if (missingKeys.length > 0) {
-        console.warn(`Missing or empty translations in ${lang}:`, missingKeys);
-        
-        // Log detailed information about missing translations
-        missingKeys.forEach(key => {
-            console.warn(`  - Missing key: ${key}`);
+        // Load new translations and apply them
+        loadLanguageTranslations(newLang).then(() => {
+            applyTranslations(newLang);
+            updateEFilingGuideLink(newLang);
         });
+    });
+    
+    console.log('Language system initialized successfully');
+});
+
+// Apply translations to all elements with data-translate attributes
+function applyTranslations(lang) {
+    const elementsToTranslate = document.querySelectorAll('[data-translate]');
+    
+    elementsToTranslate.forEach(element => {
+        const key = element.getAttribute('data-translate');
+        const translation = translate(key, lang);
         
-        return false;
-    }
-
-    // Additional validation for specific key patterns
-    const tooltipKeys = Object.keys(translations).filter(key => key.startsWith('tooltip_'));
-    if (tooltipKeys.length < 10) {
-        console.warn(`Insufficient tooltip translations in ${lang}. Found: ${tooltipKeys.length}, expected at least 10`);
-    }
-
-    console.log(`Translation validation passed for ${lang}. Found ${Object.keys(translations).length} keys.`);
-    return true;
-}
-
-// Enhanced fallback system with multiple fallback strategies
-export function getFallbackText(key, defaultValue = '', currentLang = 'en') {
-    // Strategy 1: Try the primary fallback language (English)
-    const primaryFallback = 'en';
-    if (currentLang !== primaryFallback && window.translations?.[primaryFallback]?.[key]) {
-        console.warn(`Using ${primaryFallback} fallback for key: ${key}`);
-        return window.translations[primaryFallback][key];
-    }
-    
-    // Strategy 2: Try the first available language
-    const availableLanguages = Object.keys(window.translations || {});
-    for (const lang of availableLanguages) {
-        if (lang !== currentLang && window.translations[lang]?.[key]) {
-            console.warn(`Using ${lang} fallback for key: ${key}`);
-            return window.translations[lang][key];
+        if (translation) {
+            element.textContent = translation;
         }
-    }
+    });
     
-    // Strategy 3: Try to construct a meaningful default based on the key
-    const constructedDefault = constructDefaultFromKey(key);
-    if (constructedDefault) {
-        console.warn(`Using constructed default for key: ${key}`);
-        return constructedDefault;
-    }
-    
-    // Strategy 4: Return the provided default value or a generic placeholder
-    const finalFallback = defaultValue || `[${key}]`;
-    console.error(`No translation found for key: ${key}, using fallback: ${finalFallback}`);
-    return finalFallback;
-}
-
-// Helper function to construct meaningful defaults from translation keys
-function constructDefaultFromKey(key) {
-    // Convert snake_case to Title Case
-    const titleCase = key
-        .replace(/_/g, ' ')
-        .replace(/\b\w/g, l => l.toUpperCase());
-    
-    // Handle specific patterns
-    const patterns = {
-        'tooltip_': 'Help information for ',
-        'nav_': '',
-        'btn_': '',
-        'error_': 'Error: ',
-        'msg_': '',
-        'label_': ''
-    };
-    
-    for (const [pattern, prefix] of Object.entries(patterns)) {
-        if (key.startsWith(pattern)) {
-            const cleanKey = key.replace(pattern, '');
-            const cleanTitle = cleanKey
-                .replace(/_/g, ' ')
-                .replace(/\b\w/g, l => l.toUpperCase());
-            return prefix + cleanTitle;
+    // Handle placeholders
+    const elementsWithPlaceholders = document.querySelectorAll('[data-placeholder-key]');
+    elementsWithPlaceholders.forEach(element => {
+        const key = element.getAttribute('data-placeholder-key');
+        const translation = translate(key, lang);
+        
+        if (translation) {
+            element.placeholder = translation;
         }
-    }
+    });
     
-    return titleCase;
+    // Update welcome message specifically
+    updateWelcomeMessage(lang);
 }
 
-// Enhanced language loading with better error handling
-export async function loadLanguageTranslations(lang) {
+// Update welcome message based on language
+function updateWelcomeMessage(lang) {
+    const welcomeTitle = document.getElementById('welcomeTitle');
+    const welcomeIntro = document.getElementById('welcomeIntro');
+    const welcomeInstructions = document.getElementById('welcomeInstructions');
+    
+    if (welcomeTitle) {
+        const titleText = translate('welcome_title', lang, 'Welcome to TaxEasy_ZA!');
+        welcomeTitle.textContent = titleText;
+    }
+    
+    if (welcomeIntro) {
+        const introText = translate('welcome_intro', lang, 'This professional tax calculator will help you accurately calculate your South African personal income tax for the 2025 tax year (1 March 2024 – 28 February 2025).');
+        welcomeIntro.textContent = introText;
+    }
+    
+    if (welcomeInstructions) {
+        const instructionsText = translate('welcome_instructions', lang, 'Please complete all sections accurately. Use the navigation buttons above to move between pages, and hover over the question mark icons for helpful tooltips.');
+        welcomeInstructions.textContent = instructionsText;
+    }
+}
+
+// Update eFiling guide link based on language
+function updateEFilingGuideLink(lang) {
+    const efilingBtn = document.getElementById('efilingBtn');
+    if (efilingBtn) {
+        const baseUrl = 'efiling-guides/efiling-guide';
+        const newUrl = lang === 'en' ? `${baseUrl}.html` : `${baseUrl}_${lang}.html`;
+        efilingBtn.href = newUrl;
+    }
+}
+
+// Enhanced FAQ loading with language support
+async function loadFAQContent() {
+    const faqContent = document.getElementById('faqContent');
+    if (!faqContent) return;
+
     try {
-        // Validate language code
-        if (!SUPPORTED_LANGUAGES.includes(lang)) {
-            throw new Error(`Unsupported language: ${lang}`);
-        }
-        
-        console.log(`Loading translations for language: ${lang}`);
-        
-        // Try to load the translation file
-        const response = await fetch(`./translations/${lang}.json`);
+        const lang = document.getElementById('langSelect').value || 'en';
+        const response = await fetch(`translations/faq_${lang}.json`);
         
         if (!response.ok) {
-            throw new Error(`Failed to load translations: ${response.status} ${response.statusText}`);
+            throw new Error(`Failed to load FAQ: ${response.status}`);
         }
         
-        const translations = await response.json();
+        const faqData = await response.json();
+        const faqs = faqData.faqs || [];
         
-        // Validate the loaded translations
-        const isValid = validateTranslations(lang, translations);
-        
-        if (!isValid) {
-            console.warn(`Translation validation failed for ${lang}, but continuing with available translations`);
-        }
-        
-        // Store translations globally
-        if (!window.translations) {
-            window.translations = {};
-        }
-        window.translations[lang] = translations;
-        
-        console.log(`Successfully loaded ${Object.keys(translations).length} translations for ${lang}`);
-        return translations;
-        
-    } catch (error) {
-        console.error(`Error loading translations for ${lang}:`, error);
-        
-        // If this is not the fallback language, try to load English as fallback
-        if (lang !== 'en') {
-            console.log('Attempting to load English as fallback...');
-            try {
-                return await loadLanguageTranslations('en');
-            } catch (fallbackError) {
-                console.error('Failed to load fallback language:', fallbackError);
-            }
-        }
-        
-        // Return empty object if all else fails
-        return {};
-    }
-}
-
-// Enhanced translation function with better error handling
-export function translate(key, lang = 'en', fallbackValue = '') {
-    try {
-        // Check if translations are loaded
-        if (!window.translations) {
-            console.warn('Translations not loaded yet');
-            return getFallbackText(key, fallbackValue, lang);
-        }
-        
-        // Get translation for the requested language
-        const translation = window.translations[lang]?.[key];
-        
-        if (translation && typeof translation === 'string' && translation.trim() !== '') {
-            return translation;
-        }
-        
-        // Use fallback system
-        return getFallbackText(key, fallbackValue, lang);
-        
-    } catch (error) {
-        console.error(`Error translating key "${key}":`, error);
-        return getFallbackText(key, fallbackValue, lang);
-    }
-}
-
-// Language change handler with validation
-export function changeLanguage(newLang) {
-    try {
-        if (!SUPPORTED_LANGUAGES.includes(newLang)) {
-            throw new Error(`Unsupported language: ${newLang}`);
-        }
-        
-        console.log(`Changing language to: ${newLang}`);
-        
-        // Update the language selector if it exists
-        const langSelect = document.getElementById('langSelect');
-        if (langSelect && langSelect.value !== newLang) {
-            langSelect.value = newLang;
-        }
-        
-        // Store the language preference
-        localStorage.setItem('preferredLanguage', newLang);
-        
-        // Trigger language change event
-        const event = new CustomEvent('languageChanged', { 
-            detail: { 
-                language: newLang,
-                previousLanguage: document.documentElement.lang || 'en'
-            } 
+        let faqHTML = '';
+        faqs.forEach((faq, index) => {
+            faqHTML += `
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(${index})">
+                        ${faq.question}
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer" id="faq-answer-${index}">
+                        ${faq.answer}
+                    </div>
+                </div>
+            `;
         });
-        document.dispatchEvent(event);
         
-        // Update document language attribute
-        document.documentElement.lang = newLang;
-        
-        return true;
+        faqContent.innerHTML = faqHTML;
         
     } catch (error) {
-        console.error('Error changing language:', error);
-        return false;
+        console.error('FAQ load error:', error);
+        faqContent.innerHTML = '<p class="error">FAQ content unavailable</p>';
     }
 }
 
-// Initialize language system
-export function initializeLanguageSystem() {
+// Toggle FAQ item
+function toggleFaq(index) {
+    const answer = document.getElementById(`faq-answer-${index}`);
+    if (answer) {
+        const isOpen = answer.classList.contains('open');
+        
+        // Close all other FAQ items
+        document.querySelectorAll('.faq-answer').forEach(item => {
+            item.classList.remove('open');
+        });
+        
+        // Toggle current item
+        if (!isOpen) {
+            answer.classList.add('open');
+        }
+    }
+}
+
+// Enhanced eFiling guide loading with language support
+async function loadEFilingGuide() {
+    const efilingContent = document.getElementById('efilingContent');
+    if (!efilingContent) return;
+
     try {
-        // Get preferred language from localStorage or browser
-        const savedLang = localStorage.getItem('preferredLanguage');
-        const browserLang = navigator.language.split('-')[0];
-        const defaultLang = SUPPORTED_LANGUAGES.includes(browserLang) ? browserLang : 'en';
-        const initialLang = savedLang || defaultLang;
+        const lang = document.getElementById('langSelect').value || 'en';
+        const guideFile = lang === 'en' ? 'efiling-guide.html' : `efiling-guide_${lang}.html`;
+        const response = await fetch(`efiling-guides/${guideFile}`);
         
-        console.log(`Initializing language system with: ${initialLang}`);
-        
-        // Set up language selector if it exists
-        const langSelect = document.getElementById('langSelect');
-        if (langSelect) {
-            langSelect.value = initialLang;
-            langSelect.addEventListener('change', (e) => {
-                changeLanguage(e.target.value);
-            });
+        if (!response.ok) {
+            throw new Error(`Failed to load eFiling guide: ${response.status}`);
         }
         
-        // Load initial translations
-        loadLanguageTranslations(initialLang);
-        
-        // Set document language
-        document.documentElement.lang = initialLang;
-        
-        return initialLang;
+        const guideHTML = await response.text();
+        efilingContent.innerHTML = guideHTML;
         
     } catch (error) {
-        console.error('Error initializing language system:', error);
-        return 'en'; // Fallback to English
+        console.error('eFiling guide load error:', error);
+        efilingContent.innerHTML = '<p class="error">eFiling guide unavailable</p>';
     }
 }
 
-// Export for global access
-window.languageHandler = {
-    validateTranslations,
-    getFallbackText,
-    loadLanguageTranslations,
-    translate,
-    changeLanguage,
-    initializeLanguageSystem
-};
+// Make functions globally available
+window.applyTranslations = applyTranslations;
+window.updateWelcomeMessage = updateWelcomeMessage;
+window.updateEFilingGuideLink = updateEFilingGuideLink;
+window.loadFAQContent = loadFAQContent;
+window.toggleFaq = toggleFaq;
+window.loadEFilingGuide = loadEFilingGuide;
 
