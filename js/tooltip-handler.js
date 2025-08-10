@@ -17,12 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Get base tooltip content
     const baseKey = `tooltip_${key}`;
-    content = translations[lang]?.[baseKey] || '';
+    content = window.translations?.[lang]?.[baseKey] || '';
     
     // Add occupation-specific content if available
     if (occupation) {
       const occupationKey = `${baseKey}_${occupation}`;
-      const occupationContent = translations[lang]?.[occupationKey];
+      const occupationContent = window.translations?.[lang]?.[occupationKey];
       if (occupationContent) {
         content += `\n\n${occupationContent}`;
       }
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('mouseover', e => {
     const icon = e.target.closest('.tooltip-icon, [data-tooltip]');
     if (!icon) return;
-    const key = icon.dataset.tooltipKey;
+    const key = icon.dataset.tooltip || icon.dataset.tooltipKey;
     const lang = document.getElementById('langSelect')?.value || 'en';
     const html = getTooltip(key, lang);
     if (!html) return;
